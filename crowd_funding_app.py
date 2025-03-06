@@ -90,18 +90,28 @@ def create(user):
     project_title = input("Enter the name of your project: ")
     project_details = input("Enter the details of your project: ")
     total_target = input("Enter the total target amount: ")
+    today = datetime.today().strftime(format)
+    
     while True:
         start_date = input("Enter the start date of your project:(DD-MM-YYYY) ")
         try:
-            datetime.strptime(start_date, format)
-            break
+            sdate=datetime.strptime(start_date, format).date()
+            if sdate < today:
+                print("Start date should be greater than or equal to today's date. Please try again.")
+                continue
+            else:   
+                break
         except ValueError:
             print("Invalid date format! Please try again.")
     while True:
         end_date = input("Enter the end date of your project:(DD-MM-YYYY) ")
         try:
-            datetime.strptime(end_date, format)
-            break
+            edate=datetime.strptime(end_date, format).date()
+            if edate < start_date:
+                print("End date should be greater than or equal start date. Please try again.")
+                continue
+            else:
+                break
         except ValueError:
             print("Invalid date format! Please try again.")
     projects.append({"project_title": project_title, "project_details": project_details, "total_target": total_target, "start_date": start_date, "end_date": end_date, "created_by": user["email"]})
