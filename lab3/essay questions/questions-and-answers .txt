@@ -1,0 +1,83 @@
+1)Dictionary Comprehension Example
+
+- dictionary comprehension form:{key: value for (key, value) in iterable}
+
+dictionary = {x: x**2 for x in [1,2,3,4,5]}
+print (dictionary)
+
+
+words = ["apple", "banana", "grapes", "book", "shelf"]
+dictionary_word_lengths = {word: len(word) for word in words}
+print(dictionary_word_lengths)
+--------------------------------------------------------------------------------------------------------------------------------------
+2)Summarize Multi Inheritance in Python
+
+Method Resolution Order (MRO): In the case of multiple inheritance, a given attribute is first searched in the 
+current class if it’s not found then it’s searched in the parent classes. 
+The parent classes are searched in a 
+left-right fashion and each class is searched once.
+
+Multi Inheritance: when a class is derived from more than one base class
+
+class Class1:
+	def m(self):
+		print("In Class1")
+
+class Class2(Class1):
+	def m(self):
+		print("In Class2")
+		super().m()
+
+class Class3(Class1):
+	def m(self):
+		print("In Class3")
+		super().m()
+
+class Class4(Class2, Class3):
+	def m(self):
+		print("In Class4") 
+		super().m()
+	
+print(Class4.mro())		 
+
+[<class ‘__main__.Class4’>, <class ‘__main__.Class2’>, <class ‘__main__.Class3’>, <class ‘__main__.Class1’>, <class ‘object’>] 
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+3)Data class in python  
+
+-used to store information 
+-usually doesn't contain methods but it could contain it 
+-you can assign default values to attributes 
+
+regular class:
+class Book:
+    def __init__(self, title, author, price=19.99):
+        self.title = title
+        self.author = author
+        self.price = price
+
+    def __repr__(self):
+        return f"Book(title={self.title}, author={self.author}, price={self.price})"
+
+    def __eq__(self, other):
+        return (self.title, self.author, self.price) == (other.title, other.author, other.price)
+
+book1 = Book("Once upon a time ", "James Arther ", 19.99)
+print(book1)  # Book(title=Once upon a time, author=James Arther, price=19.99)
+
+using data class:
+rom dataclasses import dataclass
+
+@dataclass
+class Book:
+    title: str
+    author: str
+    price: float=19.99
+
+book1 = Book("1984", "George Orwell")
+print(book1)  # Book(title='1984', author='George Orwell', price=19.99)
+
+
+
+
